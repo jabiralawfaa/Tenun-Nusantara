@@ -32,7 +32,9 @@ export class Preloader extends Scene
         //  Load the assets for the game - Replace with your own assets
         this.load.setPath('assets');
 
-        this.load.image('logo', 'logo.png');
+        this.load.image('logo', 'Tenun-Nusantara-logo.png'); // Updated to use the correct logo path
+        this.load.image('bg', 'bg.png'); // Added background image
+        this.load.image('budayago', 'budayago-Layer 1(1).png'); // Added budayago icon
     }
 
     create ()

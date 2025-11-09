@@ -1,153 +1,76 @@
-# Phaser Vite Template
+## **Deskripsi dan Alur Web Game "Tenun Nusantara"**
 
-This is a Phaser 3 project template that uses Vite for bundling. It supports hot-reloading for quick development workflow and includes scripts to generate production-ready builds.
+### **Deskripsi Aplikasi**
+"Tenun Nusantara" adalah web game edukatif berbasis browser yang mengajak pengguna untuk mempelajari sejarah dan proses pembuatan kain tenun tradisional Indonesia menggunakan alat tenun gedogan. Game ini menggabungkan elemen pembelajaran budaya, simulasi interaktif, dan fitur e-commerce, memungkinkan pengguna tidak hanya belajar tentang warisan budaya Indonesia tetapi juga dapat memesan hasil tenun asli yang mereka buat secara virtual.
 
-**[This Template is also available as a TypeScript version.](https://github.com/phaserjs/template-vite-ts)**
+### **Alur Permainan**
 
-### Versions
+#### **1. Halaman Pembelajaran Sejarah**
+- Pengguna memulai dengan menjelajahi galeri sejarah tenun Indonesia
+- Menampilkan informasi tentang berbagai jenis tenun (Ulos, Songket, Ikat, dll) dari berbagai daerah
+- Dilengkapi dengan ilustrasi 2D, narasi audio, dan mini-game kuis sejarah
+- Pengguna mendapatkan poin budaya yang bisa ditukar dengan bahan tenun virtual
 
-This template has been updated for:
+#### **2. Pembuatan Pola Desain**
+- Pengguna memilih jenis tenun yang ingin dibuat (Baduy, Dermayon, dll)
+- Menggunakan alat desain digital untuk membuat motif tenun:
+  - Pemilihan warna tradisional (alami dari tumbuhan)
+  - Pembuatan pola geometris atau simbolik sesuai budaya daerah
+  - Preview real-time dari desain yang dibuat
+- Sistem memberikan rekomendasi berdasarkan pola tradisional otentik
 
-- [Phaser 3.90.0](https://github.com/phaserjs/phaser)
-- [Vite 6.3.1](https://github.com/vitejs/vite)
+#### **3. Persiapan Benang**
+- **Benang Lungsin (Lusi):** Pengguna mengatur benang lungsin secara vertikal pada alat gedogan virtual
+  - Memilih jenis benang (kapas, sutra, atau serat alam)
+  - Mengatur ketegangan dan pola dasar 
+- **Benang Pakan:** Pengguna menyiapkan benang pakan yang akan dianyamkan secara horizontal
+  - Pemilihan warna sesuai desain yang telah dibuat
+  - Pengaturan jumlah gulungan benang untuk estimasi waktu menenun
 
-![screenshot](screenshot.png)
+#### **4. Proses Menenun dengan Gedogan**
+- Simulasi interaktif alat tenun gedogan dengan posisi duduk di lantai 
+- Alat gedogan ditampilkan dalam posisi dipangku/digendong dengan visual 2D yang akurat 
+- Mekanisme permainan:
+  - Pengguna mengklik tombol "Benang Lungsin" untuk mengangkat benang lusi
+  - Lalu mengklik tombol "Benang Pakan" untuk memasukkan benang pakan secara bergantian
+  - Setiap klik yang tepat menghasilkan anyaman yang sempurna
+  - Sistem memberikan feedback visual dan audio untuk setiap gerakan
+  - Proses ini mensimulasikan teknik menenun yang menganyam benang pakan pada benang lusi 
+- Mini-game timing untuk menambah tantangan dan edukasi tentang kesabaran dalam menenun tradisional
 
-## Requirements
+#### **5. Penyelesaian dan Pemesanan**
+- Setelah selesai, pengguna dapat melihat hasil tenun virtual mereka
+- Opsi untuk:
+  - Menyimpan desain sebagai koleksi digital
+  - Berbagi ke media sosial
+  - **Memesan versi fisik** dari hasil tenun yang sama dari pengrajin mitra
+- Integrasi sistem e-commerce sederhana untuk pemesanan kain tenun asli
 
-[Node.js](https://nodejs.org) is required to install dependencies and run scripts via `npm`.
+### **Rekomendasi Teknologi**
 
-## Available Commands
+#### **Bahasa Pemrograman Utama:**
+- **JavaScript/ES6+** sebagai bahasa inti untuk logika game dan interaktivitas
+- **HTML5 & CSS3** untuk struktur halaman dan styling antarmuka
 
-| Command | Description |
-|---------|-------------|
-| `npm install` | Install project dependencies |
-| `npm run dev` | Launch a development web server |
-| `npm run build` | Create a production build in the `dist` folder |
-| `npm run dev-nolog` | Launch a development web server without sending anonymous data (see "About log.js" below) |
-| `npm run build-nolog` | Create a production build in the `dist` folder without sending anonymous data (see "About log.js" below) |
+#### **Framework & Library yang Direkomendasikan:**
 
+**1. Phaser 3 (Primary Recommendation)**
+- Phaser adalah framework game 2D paling populer untuk HTML5 yang sangat cocok untuk game berfitur lengkap seperti Tenun Nusantara 
+- Menyediakan sistem scene management yang sempurna untuk mengatur alur dari pembelajaran hingga proses menenun 
+- Memiliki built-in physics engine yang bisa disesuaikan untuk simulasi gerakan benang
+- Mendukung mobile-first development dengan responsive design yang baik
 
-## Writing Code
+#### **Teknologi Pendukung:**
+- **Webpack/Vite** untuk bundling dan optimization
+- **GSAP** untuk animasi UI yang smooth
+- **Howler.js** untuk sound effects dan narasi audio
+- **Firebase/Node.js + MongoDB** untuk backend (user data, desain penyimpanan, e-commerce integration)
+- **Responsive Design** dengan CSS Grid/Flexbox untuk kompatibilitas mobile dan desktop
 
-After cloning the repo, run `npm install` from your project directory. Then, you can start the local development server by running `npm run dev`.
+### **Style Visual (2D)**
+- **Art Style:** Flat design dengan sentuhan ilustrasi tradisional Indonesia
+- **Color Palette:** Menggunakan warna-warna tradisional khas tenun Indonesia (merah, emas, hitam, dan warna alami)
+- **UI/UX:** Minimalis dengan elemen-elemen budaya yang kental, menggunakan pola tenun sebagai border dan background elements
+- **Character Design:** Karakter 2D sederhana dalam posisi duduk menenun dengan alat gedogan 
 
-The local development server runs on `http://localhost:8080` by default. Please see the Vite documentation if you wish to change this, or add SSL support.
-
-Once the server is running you can edit any of the files in the `src` folder. Vite will automatically recompile your code and then reload the browser.
-
-## Template Project Structure
-
-We have provided a default project structure to get you started. This is as follows:
-
-| Path                         | Description                                                |
-|------------------------------|------------------------------------------------------------|
-| `index.html`                 | A basic HTML page to contain the game.                     |
-| `public/assets`              | Game sprites, audio, etc. Served directly at runtime.      |
-| `public/style.css`           | Global layout styles.                                      |
-| `src/main.js`                | Application bootstrap.                                     |
-| `src/game`                   | Folder containing the game code.                           |
-| `src/game/main.js`           | Game entry point: configures and starts the game.          |
-| `src/game/scenes`            | Folder with all Phaser game scenes.                        | 
-
-## Handling Assets
-
-Vite supports loading assets via JavaScript module `import` statements.
-
-This template provides support for both embedding assets and also loading them from a static folder. To embed an asset, you can import it at the top of the JavaScript file you are using it in:
-
-```js
-import logoImg from './assets/logo.png'
-```
-
-To load static files such as audio files, videos, etc place them into the `public/assets` folder. Then you can use this path in the Loader calls within Phaser:
-
-```js
-preload ()
-{
-    //  This is an example of an imported bundled image.
-    //  Remember to import it at the top of this file
-    this.load.image('logo', logoImg);
-
-    //  This is an example of loading a static image
-    //  from the public/assets folder:
-    this.load.image('background', 'assets/bg.png');
-}
-```
-
-When you issue the `npm run build` command, all static assets are automatically copied to the `dist/assets` folder.
-
-## Deploying to Production
-
-After you run the `npm run build` command, your code will be built into a single bundle and saved to the `dist` folder, along with any other assets your project imported, or stored in the public assets folder.
-
-In order to deploy your game, you will need to upload *all* of the contents of the `dist` folder to a public facing web server.
-
-## Customizing the Template
-
-### Vite
-
-If you want to customize your build, such as adding plugin (i.e. for loading CSS or fonts), you can modify the `vite/config.*.mjs` file for cross-project changes, or you can modify and/or create new configuration files and target them in specific npm tasks inside of `package.json`. Please see the [Vite documentation](https://vitejs.dev/) for more information.
-
-## About log.js
-
-If you inspect our node scripts you will see there is a file called `log.js`. This file makes a single silent API call to a domain called `gryzor.co`. This domain is owned by Phaser Studio Inc. The domain name is a homage to one of our favorite retro games.
-
-We send the following 3 pieces of data to this API: The name of the template being used (vue, react, etc). If the build was 'dev' or 'prod' and finally the version of Phaser being used.
-
-At no point is any personal data collected or sent. We don't know about your project files, device, browser or anything else. Feel free to inspect the `log.js` file to confirm this.
-
-Why do we do this? Because being open source means we have no visible metrics about which of our templates are being used. We work hard to maintain a large and diverse set of templates for Phaser developers and this is our small anonymous way to determine if that work is actually paying off, or not. In short, it helps us ensure we're building the tools for you.
-
-However, if you don't want to send any data, you can use these commands instead:
-
-Dev:
-
-```bash
-npm run dev-nolog
-```
-
-Build:
-
-```bash
-npm run build-nolog
-```
-
-Or, to disable the log entirely, simply delete the file `log.js` and remove the call to it in the `scripts` section of `package.json`:
-
-Before:
-
-```json
-"scripts": {
-    "dev": "node log.js dev & dev-template-script",
-    "build": "node log.js build & build-template-script"
-},
-```
-
-After:
-
-```json
-"scripts": {
-    "dev": "dev-template-script",
-    "build": "build-template-script"
-},
-```
-
-Either of these will stop `log.js` from running. If you do decide to do this, please could you at least join our Discord and tell us which template you're using! Or send us a quick email. Either will be super-helpful, thank you.
-
-## Join the Phaser Community!
-
-We love to see what developers like you create with Phaser! It really motivates us to keep improving. So please join our community and show-off your work 😄
-
-**Visit:** The [Phaser website](https://phaser.io) and follow on [Phaser Twitter](https://twitter.com/phaser_)<br />
-**Play:** Some of the amazing games [#madewithphaser](https://twitter.com/search?q=%23madewithphaser&src=typed_query&f=live)<br />
-**Learn:** [API Docs](https://newdocs.phaser.io), [Support Forum](https://phaser.discourse.group/) and [StackOverflow](https://stackoverflow.com/questions/tagged/phaser-framework)<br />
-**Discord:** Join us on [Discord](https://discord.gg/phaser)<br />
-**Code:** 2000+ [Examples](https://labs.phaser.io)<br />
-**Read:** The [Phaser World](https://phaser.io/community/newsletter) Newsletter<br />
-
-Created by [Phaser Studio](mailto:support@phaser.io). Powered by coffee, anime, pixels and love.
-
-The Phaser logo and characters are &copy; 2011 - 2025 Phaser Studio Inc.
-
-All rights reserved.
+Dengan kombinasi teknologi yang tepat dan alur permainan yang edukatif, "Tenun Nusantara" akan menjadi platform yang efektif untuk melestarikan budaya tenun Indonesia sambil memberikan pengalaman interaktif yang menarik bagi generasi muda.
