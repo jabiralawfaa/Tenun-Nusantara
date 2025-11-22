@@ -15,12 +15,12 @@ export class TenunanKamu extends Scene
         background.displayWidth = this.scale.width;
         background.displayHeight = this.scale.height;
 
-        // Create background box that covers 100% width and 80% height
+        // Bg Box
         const boxWidth = this.scale.width;
-        const boxHeight = this.scale.height * 0.8;
+        const boxHeight = this.scale.height * 1.8;
         const boxCenterX = this.scale.width / 2;
-        const boxCenterY = this.scale.height / 2;
-        
+        const boxCenterY = this.scale.height;
+
         const backgroundBox = this.add.rectangle(boxCenterX, boxCenterY, boxWidth, boxHeight, 0x1a1a1a, 0.7);
         backgroundBox.setOrigin(0.5, 0.5);
         backgroundBox.setStrokeStyle(2, 0x7b3ff2);
@@ -34,6 +34,17 @@ export class TenunanKamu extends Scene
             align: 'center'
         });
         subTitleText.setOrigin(0.5, 0);
+        
+        // Animate title with fade and scale
+        subTitleText.setAlpha(0);
+        subTitleText.setScale(0.5);
+        this.tweens.add({
+            targets: subTitleText,
+            alpha: 1,
+            scale: 1,
+            duration: 600,
+            ease: 'Back.easeOut'
+        });
 
         // Create card containers - Two cards side by side
         const cardWidth = 200;
@@ -43,10 +54,34 @@ export class TenunanKamu extends Scene
         const cardsStartY = 120;
 
         // First card - "Tenun Pertama"
-        this.createTenunCard(cardsStartX, cardsStartY, 'Tenun Pertama');
+        const card1 = this.createTenunCard(cardsStartX, cardsStartY, 'Tenun Pertama');
+        
+        // Animate first card with slide from left
+        card1.setAlpha(0);
+        card1.x -= 100;
+        this.tweens.add({
+            targets: card1,
+            alpha: 1,
+            x: cardsStartX,
+            duration: 600,
+            delay: 300,
+            ease: 'Power2'
+        });
 
         // Second card - "Tenun Berkarya"
-        this.createTenunCard(cardsStartX + cardWidth + cardsGapX, cardsStartY, 'Tenun Berkarya');
+        const card2 = this.createTenunCard(cardsStartX + cardWidth + cardsGapX, cardsStartY, 'Tenun Berkarya');
+        
+        // Animate second card with slide from right
+        card2.setAlpha(0);
+        card2.x += 100;
+        this.tweens.add({
+            targets: card2,
+            alpha: 1,
+            x: cardsStartX + cardWidth + cardsGapX,
+            duration: 600,
+            delay: 500,
+            ease: 'Power2'
+        });
 
         // Create bottom buttons container
         this.createBottomButtons();
@@ -60,6 +95,7 @@ export class TenunanKamu extends Scene
         const cardContainer = this.add.container(x, y);
         cardContainer.setDataEnabled();
         cardContainer.data.set('cardName', cardName);
+        cardContainer.setName('tenunCard');
         
         // Create the card background with border effect
         const cardBg = this.add.rectangle(0, 0, 200, 280, 0x1a1a1a); // Dark background for the card
@@ -74,7 +110,7 @@ export class TenunanKamu extends Scene
         // Load and add the icon kain
         const icon = this.add.image(100, 70, 'icon-kain');
         icon.setOrigin(0.5, 0.5);
-        icon.setScale(0.3); // Adjust scale as needed
+        icon.setScale(0.2); // Adjust scale as needed
         
         // Add tenun name below the icon
         const tenunName = this.add.text(100, 190, cardName, {
@@ -100,7 +136,7 @@ export class TenunanKamu extends Scene
                 overlayBg.setName('overlay');
                 
                 // Create Edit button
-                editButton = this.add.rectangle(70, 100, 140, 50, 0x7b3ff2);
+                editButton = this.add.rectangle(100, 100, 140, 50, 0x7b3ff2);
                 editButton.setOrigin(0.5, 0.5);
                 editButton.setStrokeStyle(2, 0xffffff);
                 editButton.setInteractive({ useHandCursor: true });
@@ -126,7 +162,7 @@ export class TenunanKamu extends Scene
                 editIcon.setName('editIcon');
                 
                 // Create Pesan button
-                pesanButton = this.add.rectangle(70, 165, 140, 50, 0x7b3ff2);
+                pesanButton = this.add.rectangle(100, 165, 140, 50, 0x7b3ff2);
                 pesanButton.setOrigin(0.5, 0.5);
                 pesanButton.setStrokeStyle(2, 0xffffff);
                 pesanButton.setInteractive({ useHandCursor: true });
@@ -187,6 +223,8 @@ export class TenunanKamu extends Scene
         });
         
         cardContainer.add([cardBg, imageBg, icon, tenunName]);
+        
+        return cardContainer;
     }
 
     createBottomButtons() {
@@ -214,6 +252,20 @@ export class TenunanKamu extends Scene
             this.scene.start('MainMenu');
         });
         
+        // Animate kembali button from bottom
+        kembaliButton.setAlpha(0);
+        kembaliText.setAlpha(0);
+        kembaliButton.y += 50;
+        kembaliText.y += 50;
+        this.tweens.add({
+            targets: [kembaliButton, kembaliText],
+            alpha: 1,
+            y: this.scale.height - padding - buttonHeight / 2,
+            duration: 600,
+            delay: 700,
+            ease: 'Back.easeOut'
+        });
+        
         // Create "Tambah Tenunan" button on the bottom right
         const tambahButton = this.add.rectangle(this.scale.width - padding - 75, this.scale.height - padding - buttonHeight / 2, 150, buttonHeight, 0x7b3ff2);
         tambahButton.setOrigin(0.5, 0.5);
@@ -233,6 +285,20 @@ export class TenunanKamu extends Scene
         tambahButton.on('pointerdown', () => {
             console.log('Tambah Tenunan button clicked');
             this.scene.start('PolaTenunan');
+        });
+        
+        // Animate tambah button from bottom
+        tambahButton.setAlpha(0);
+        tambahText.setAlpha(0);
+        tambahButton.y += 50;
+        tambahText.y += 50;
+        this.tweens.add({
+            targets: [tambahButton, tambahText],
+            alpha: 1,
+            y: this.scale.height - padding - buttonHeight / 2,
+            duration: 600,
+            delay: 900,
+            ease: 'Back.easeOut'
         });
     }
 
