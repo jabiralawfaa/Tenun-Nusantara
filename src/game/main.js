@@ -3,7 +3,8 @@ import { Game as MainGame } from './scenes/Game';
 import { GameOver } from './scenes/GameOver';
 import { MainMenu } from './scenes/MainMenu';
 import { Preloader } from './scenes/Preloader';
-import { TenunanKamu } from './scenes/TenunanKamu';
+// import { TenunanKamu } from './scenes/TenunanKamu';
+import { TenunanKamu2 } from './scenes/Tenunankamu2';
 import { AUTO, Game } from 'phaser';
 
 //  Find out more information about the Game Config at:
@@ -30,7 +31,7 @@ const config = {
         Boot,
         Preloader,
         MainMenu,
-        TenunanKamu,
+        TenunanKamu2,
         MainGame,
         GameOver
     ]

@@ -1,14 +1,11 @@
 import { Scene } from 'phaser';
 
-export class MainMenu extends Scene
-{
-    constructor ()
-    {
+export class MainMenu extends Scene {
+    constructor() {
         super('MainMenu');
     }
 
-    create ()
-    {
+    create() {
         // Add background image
         const background = this.add.image(0, 0, 'bg');
         background.setOrigin(0, 0);
@@ -16,20 +13,20 @@ export class MainMenu extends Scene
         background.displayHeight = this.scale.height;
 
         // Calculate grid positions - divide the width into 4 equal columns
-        const colWidth = this.scale.width / 4;
-        
+        const colWidth = this.scale.width / 10;
+
         // Add logo in the first grid column (leftmost)
         const logo = this.add.image(colWidth * 0.5, this.scale.height * 0.15, 'logo');
         logo.setOrigin(0.5, 0.5);
-        
+
         // Scale the logo appropriately
-        const logoScale = 0.4;
+        const logoScale = 0.2;
         logo.setScale(logoScale);
 
         // Add "Tenun" text in columns 2-4 (middle and right columns), left-aligned
         const tenunText = this.add.text(colWidth, 15, 'Tenun', {
             fontFamily: '"Pixelify Sans", Arial, sans-serif',
-            fontSize: '120px',
+            fontSize: '100px',
             color: '#ffffff',
             align: 'left',
             fontWeight: 'bold',
@@ -39,9 +36,9 @@ export class MainMenu extends Scene
         tenunText.setOrigin(0, 0); // Left-aligned text, align top
 
         // Add "Nusantara" text below "Tenun", also in columns 2-4, left-aligned
-        const nusantaraText = this.add.text(colWidth, 145, 'Nusantara', {
+        const nusantaraText = this.add.text(colWidth, 105, 'Nusantara', {
             fontFamily: '"Pixelify Sans", Arial, sans-serif',
-            fontSize: '120px',
+            fontSize: '90px',
             color: '#ffffff',
             align: 'left',
             fontWeight: 'bold',
@@ -54,11 +51,11 @@ export class MainMenu extends Scene
         const buttonRadius = 80;
         const buttonX = this.scale.width - buttonRadius - 30;
         const buttonY = this.scale.height - buttonRadius - 30;
-        
+
         // Create the circular button background
         const button = this.add.circle(buttonX, buttonY, buttonRadius, 0x800080) // Purple color
             .setInteractive({ useHandCursor: true });
-        
+
         // Add "Mulai" text on the button
         const buttonText = this.add.text(buttonX, buttonY, 'Mulai', {
             fontFamily: '"Pixelify Sans", Arial, sans-serif',
@@ -78,15 +75,14 @@ export class MainMenu extends Scene
 
         // Add click functionality
         button.on('pointerdown', () => {
-            this.scene.start('TenunanKamu');
+            this.scene.start('TenunanKamu2');
         });
-        
+
         // Handle window resize to reposition elements
         this.scale.on('resize', this.resize, this);
     }
 
-    resize(gameSize, baseSize, displaySize, resolution)
-    {
+    resize(gameSize, baseSize, displaySize, resolution) {
         // Resize background
         const background = this.children.list.find(child => child.texture.key === 'bg');
         if (background) {
@@ -96,7 +92,7 @@ export class MainMenu extends Scene
 
         // Calculate grid positions based on new size
         const colWidth = gameSize.width / 4;
-        
+
         // Reposition elements
         const logo = this.children.list.find(child => child.texture.key === 'logo');
         if (logo) {
