@@ -35,6 +35,8 @@ export class Preloader extends Scene
         this.load.image('logo', 'Tenun-Nusantara-logo.png'); // Updated to use the correct logo path
         this.load.image('bg', 'bg.png'); // Added background image
         this.load.image('budayago', 'budayago-Layer 1(1).png'); // Added budayago icon
+        this.load.image('icon-kain', 'icon-kain.png'); // Added icon kain
+        this.load.image('karakter', 'karakter(1).png'); // Added character image
     }
 
     create ()

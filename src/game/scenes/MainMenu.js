@@ -22,6 +22,17 @@ export class MainMenu extends Scene {
         // Scale the logo appropriately
         const logoScale = 0.2;
         logo.setScale(logoScale);
+        
+        // Animate logo with scale and fade
+        logo.setAlpha(0);
+        logo.setScale(0);
+        this.tweens.add({
+            targets: logo,
+            alpha: 1,
+            scale: logoScale,
+            duration: 800,
+            ease: 'Back.easeOut'
+        });
 
         // Add "Tenun" text in columns 2-4 (middle and right columns), left-aligned
         const tenunText = this.add.text(colWidth, 15, 'Tenun', {
@@ -34,6 +45,18 @@ export class MainMenu extends Scene {
             strokeThickness: 2
         });
         tenunText.setOrigin(0, 0); // Left-aligned text, align top
+        
+        // Animate "Tenun" text with slide from right
+        tenunText.setAlpha(0);
+        tenunText.x += 100;
+        this.tweens.add({
+            targets: tenunText,
+            alpha: 1,
+            x: colWidth,
+            duration: 800,
+            delay: 300,
+            ease: 'Power2'
+        });
 
         // Add "Nusantara" text below "Tenun", also in columns 2-4, left-aligned
         const nusantaraText = this.add.text(colWidth, 105, 'Nusantara', {
@@ -46,6 +69,18 @@ export class MainMenu extends Scene {
             strokeThickness: 2
         });
         nusantaraText.setOrigin(0, 0); // Left-aligned text, align top
+        
+        // Animate "Nusantara" text with slide from right
+        nusantaraText.setAlpha(0);
+        nusantaraText.x += 100;
+        this.tweens.add({
+            targets: nusantaraText,
+            alpha: 1,
+            x: colWidth,
+            duration: 800,
+            delay: 500,
+            ease: 'Power2'
+        });
 
         // Create circular purple "Mulai" button in bottom-right corner
         const buttonRadius = 80;
@@ -63,6 +98,19 @@ export class MainMenu extends Scene {
             color: '#ffffff',
             align: 'center'
         }).setOrigin(0.5);
+        
+        // Animate button with scale and bounce
+        button.setAlpha(0);
+        button.setScale(0);
+        buttonText.setAlpha(0);
+        this.tweens.add({
+            targets: [button, buttonText],
+            alpha: 1,
+            scale: 1,
+            duration: 600,
+            delay: 700,
+            ease: 'Back.easeOut'
+        });
 
         // Add hover effects
         button.on('pointerover', () => {
