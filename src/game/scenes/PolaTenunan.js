@@ -416,7 +416,7 @@ export class PolaTenunan extends Scene
 
         mulaiButton.on('pointerdown', () => {
             console.log('Mulai Tenun clicked');
-            // TODO: Navigate to weaving scene
+            this.scene.start('MulaiTenun');
         });
         
         // Animate mulai button

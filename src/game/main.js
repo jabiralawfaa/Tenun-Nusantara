@@ -5,7 +5,8 @@ import { MainMenu } from './scenes/MainMenu';
 import { Preloader } from './scenes/Preloader';
 import { TenunanKamu } from './scenes/TenunanKamu';
 import { PolaTenunan } from './scenes/PolaTenunan';
-import { AUTO, Game } from 'phaser';
+import { MulaiTenun } from './scenes/MulaiTenun';
+import Phaser, { AUTO, Game } from 'phaser';
 
 //  Find out more information about the Game Config at:
 //  https://docs.phaser.io/api-documentation/typedef/types-core#gameconfig
@@ -33,6 +34,7 @@ const config = {
         MainMenu,
         TenunanKamu,
         PolaTenunan,
+        MulaiTenun,
         MainGame,
         GameOver
     ]
