@@ -123,7 +123,7 @@ export class MainMenu extends Scene {
 
         // Add click functionality
         button.on('pointerdown', () => {
-            this.scene.start('TenunanKamu2');
+            this.scene.start('TenunanKamu');
         });
 
         // Handle window resize to reposition elements

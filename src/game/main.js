@@ -4,6 +4,7 @@ import { GameOver } from './scenes/GameOver';
 import { MainMenu } from './scenes/MainMenu';
 import { Preloader } from './scenes/Preloader';
 import { TenunanKamu } from './scenes/TenunanKamu';
+import { PesanTenun } from './scenes/PesanTenun';
 import { PolaTenunan } from './scenes/PolaTenunan';
 import { MulaiTenun } from './scenes/MulaiTenun';
 import Phaser, { AUTO, Game } from 'phaser';
@@ -16,6 +17,7 @@ const config = {
     height: 768,
     parent: 'game-container',
     backgroundColor: '#028af8',
+    dom: { createContainer: true },
     scale: {
         mode: Phaser.Scale.RESIZE, // Changed to RESIZE for true full screen
         autoCenter: Phaser.Scale.CENTER_BOTH,
@@ -33,6 +35,7 @@ const config = {
         Preloader,
         MainMenu,
         TenunanKamu,
+        PesanTenun,
         PolaTenunan,
         MulaiTenun,
         MainGame,
