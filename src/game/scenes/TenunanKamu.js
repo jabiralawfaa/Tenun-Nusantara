@@ -46,11 +46,11 @@ export class TenunanKamu extends Scene
             ease: 'Back.easeOut'
         });
 
-        // Create card containers - Two cards side by side
+        // Create card containers - Three cards side by side
         const cardWidth = 200;
         const cardHeight = 280;
         const cardsGapX = 60; // Gap between cards
-        const cardsStartX = (this.scale.width - (cardWidth * 2 + cardsGapX)) / 2;
+        const cardsStartX = (this.scale.width - (cardWidth * 3 + cardsGapX * 2)) / 2;
         const cardsStartY = 120;
 
         // First card - "Tenun Pertama"
@@ -81,6 +81,21 @@ export class TenunanKamu extends Scene
             duration: 600,
             delay: 500,
             ease: 'Power2'
+        });
+
+        // Third card - "Buat Tenunan Baru" (+ card)
+        const card3 = this.createNewTenunCard(cardsStartX + (cardWidth + cardsGapX) * 2, cardsStartY);
+        
+        // Animate third card with scale
+        card3.setAlpha(0);
+        card3.setScale(0.8);
+        this.tweens.add({
+            targets: card3,
+            alpha: 1,
+            scale: 1,
+            duration: 600,
+            delay: 700,
+            ease: 'Back.easeOut'
         });
 
         // Create bottom buttons container
@@ -227,6 +242,102 @@ export class TenunanKamu extends Scene
         return cardContainer;
     }
 
+    createNewTenunCard(x, y) {
+        // Create a container for the "+" card
+        const cardContainer = this.add.container(x, y);
+        cardContainer.setName('newTenunCard');
+        
+        // Create the card background with dashed border effect
+        const cardBg = this.add.rectangle(0, 0, 200, 280, 0x1a1a1a);
+        cardBg.setOrigin(0, 0);
+        cardBg.setStrokeStyle(3, 0x7b3ff2, 1); // Solid purple border
+        cardBg.setInteractive({ useHandCursor: true });
+        
+        // Add dashed border effect using graphics
+        const dashedBorder = this.add.graphics();
+        dashedBorder.lineStyle(3, 0x7b3ff2, 1);
+        
+        // Draw dashed rectangle
+        const dashLength = 10;
+        const gapLength = 5;
+        const width = 200;
+        const height = 280;
+        
+        // Top border
+        for (let i = 0; i < width; i += dashLength + gapLength) {
+            dashedBorder.lineBetween(i, 0, Math.min(i + dashLength, width), 0);
+        }
+        // Right border
+        for (let i = 0; i < height; i += dashLength + gapLength) {
+            dashedBorder.lineBetween(width, i, width, Math.min(i + dashLength, height));
+        }
+        // Bottom border
+        for (let i = 0; i < width; i += dashLength + gapLength) {
+            dashedBorder.lineBetween(width - i, height, Math.max(width - i - dashLength, 0), height);
+        }
+        // Left border
+        for (let i = 0; i < height; i += dashLength + gapLength) {
+            dashedBorder.lineBetween(0, height - i, 0, Math.max(height - i - dashLength, 0));
+        }
+        dashedBorder.strokePath();
+        
+        // Large "+" icon in the center
+        const plusSize = 80;
+        const plusThickness = 12;
+        const centerX = 100;
+        const centerY = 140;
+        
+        // Horizontal line of "+"
+        const plusHorizontal = this.add.rectangle(centerX, centerY, plusSize, plusThickness, 0x7b3ff2);
+        plusHorizontal.setOrigin(0.5, 0.5);
+        
+        // Vertical line of "+"
+        const plusVertical = this.add.rectangle(centerX, centerY, plusThickness, plusSize, 0x7b3ff2);
+        plusVertical.setOrigin(0.5, 0.5);
+        
+        // Add text below the "+"
+        const addText = this.add.text(100, 220, 'Buat Tenunan Baru', {
+            fontFamily: '"Pixelify Sans", Arial, sans-serif',
+            fontSize: '14px',
+            color: '#7b3ff2',
+            align: 'center',
+            wordWrap: { width: 180 }
+        });
+        addText.setOrigin(0.5, 0.5);
+        
+        // Add all elements to container
+        cardContainer.add([cardBg, dashedBorder, plusHorizontal, plusVertical, addText]);
+        
+        // Hover effect
+        cardBg.on('pointerover', () => {
+            this.tweens.add({
+                targets: [plusHorizontal, plusVertical, addText],
+                scale: 1.1,
+                duration: 200,
+                ease: 'Power2'
+            });
+            cardBg.setFillStyle(0x2a2a2a);
+        });
+        
+        cardBg.on('pointerout', () => {
+            this.tweens.add({
+                targets: [plusHorizontal, plusVertical, addText],
+                scale: 1,
+                duration: 200,
+                ease: 'Power2'
+            });
+            cardBg.setFillStyle(0x1a1a1a);
+        });
+        
+        // Click to go to PolaTenunan scene
+        cardBg.on('pointerdown', () => {
+            console.log('Buat Tenunan Baru clicked');
+            this.scene.start('PolaTenunan');
+        });
+        
+        return cardContainer;
+    }
+
     createBottomButtons() {
         const padding = 20;
         const buttonHeight = 45;
@@ -266,40 +377,7 @@ export class TenunanKamu extends Scene
             ease: 'Back.easeOut'
         });
         
-        // Create "Tambah Tenunan" button on the bottom right
-        const tambahButton = this.add.rectangle(this.scale.width - padding - 75, this.scale.height - padding - buttonHeight / 2, 150, buttonHeight, 0x7b3ff2);
-        tambahButton.setOrigin(0.5, 0.5);
-        tambahButton.setStrokeStyle(2, 0xffffff);
-        tambahButton.setInteractive({ useHandCursor: true });
-        tambahButton.setName('tambahButton');
-        
-        const tambahText = this.add.text(this.scale.width - padding - 75, this.scale.height - padding - buttonHeight / 2, 'Tambah Tenunan', {
-            fontFamily: '"Pixelify Sans", Arial, sans-serif',
-            fontSize: '16px',
-            color: '#ffffff',
-            align: 'center'
-        });
-        tambahText.setOrigin(0.5, 0.5);
-        tambahText.setName('tambahText');
-        
-        tambahButton.on('pointerdown', () => {
-            console.log('Tambah Tenunan button clicked');
-            this.scene.start('PolaTenunan');
-        });
-        
-        // Animate tambah button from bottom
-        tambahButton.setAlpha(0);
-        tambahText.setAlpha(0);
-        tambahButton.y += 50;
-        tambahText.y += 50;
-        this.tweens.add({
-            targets: [tambahButton, tambahText],
-            alpha: 1,
-            y: this.scale.height - padding - buttonHeight / 2,
-            duration: 600,
-            delay: 900,
-            ease: 'Back.easeOut'
-        });
+        // Note: Tombol "Tambah Tenunan" sudah digantikan dengan card "+" di atas
     }
 
     resize(gameSize, baseSize, displaySize, resolution)
