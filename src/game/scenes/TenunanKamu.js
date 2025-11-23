@@ -341,14 +341,16 @@ export class TenunanKamu extends Scene
     createBottomButtons() {
         const padding = 20;
         const buttonHeight = 45;
-        
-        // Create "Kembali" button on the bottom left
+        const buttonWidth = 150;
+
+        // -------------------------------
+        // Tombol "Kembali" di kiri bawah
+        // -------------------------------
         const kembaliButton = this.add.rectangle(padding + 60, this.scale.height - padding - buttonHeight / 2, 120, buttonHeight, 0x7b3ff2);
         kembaliButton.setOrigin(0.5, 0.5);
         kembaliButton.setStrokeStyle(2, 0xffffff);
         kembaliButton.setInteractive({ useHandCursor: true });
-        kembaliButton.setName('kembaliButton');
-        
+
         const kembaliText = this.add.text(padding + 60, this.scale.height - padding - buttonHeight / 2, 'Kembali', {
             fontFamily: '"Pixelify Sans", Arial, sans-serif',
             fontSize: '16px',
@@ -356,14 +358,13 @@ export class TenunanKamu extends Scene
             align: 'center'
         });
         kembaliText.setOrigin(0.5, 0.5);
-        kembaliText.setName('kembaliText');
-        
+
         kembaliButton.on('pointerdown', () => {
             console.log('Kembali button clicked');
             this.scene.start('MainMenu');
         });
-        
-        // Animate kembali button from bottom
+
+        // Animate kembali button
         kembaliButton.setAlpha(0);
         kembaliText.setAlpha(0);
         kembaliButton.y += 50;
@@ -376,9 +377,43 @@ export class TenunanKamu extends Scene
             delay: 700,
             ease: 'Back.easeOut'
         });
-        
-        // Note: Tombol "Tambah Tenunan" sudah digantikan dengan card "+" di atas
+
+        // -------------------------------
+        // Tombol "Pesan Tenun" di kanan bawah
+        // -------------------------------
+        const pesanButton = this.add.rectangle(this.scale.width - padding - buttonWidth / 2, this.scale.height - padding - buttonHeight / 2, buttonWidth, buttonHeight, 0xff7f50);
+        pesanButton.setOrigin(0.5, 0.5);
+        pesanButton.setStrokeStyle(2, 0xffffff);
+        pesanButton.setInteractive({ useHandCursor: true });
+
+        const pesanText = this.add.text(this.scale.width - padding - buttonWidth / 2, this.scale.height - padding - buttonHeight / 2, 'Pesan Tenun', {
+            fontFamily: '"Pixelify Sans", Arial, sans-serif',
+            fontSize: '16px',
+            color: '#ffffff',
+            align: 'center'
+        });
+        pesanText.setOrigin(0.5, 0.5);
+
+        pesanButton.on('pointerdown', () => {
+            console.log('Pesan Tenun button clicked');
+            this.scene.start('PesanTenun'); // pindah ke scene PesanTenun
+        });
+
+        // Animate pesan button
+        pesanButton.setAlpha(0);
+        pesanText.setAlpha(0);
+        pesanButton.y += 50;
+        pesanText.y += 50;
+        this.tweens.add({
+            targets: [pesanButton, pesanText],
+            alpha: 1,
+            y: this.scale.height - padding - buttonHeight / 2,
+            duration: 600,
+            delay: 900,
+            ease: 'Back.easeOut'
+        });
     }
+
 
     resize(gameSize, baseSize, displaySize, resolution)
     {

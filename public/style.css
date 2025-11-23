@@ -22,3 +22,11 @@ body {
     justify-content: center;
     align-items: center;
 }
+#game-container {
+    position: relative;
+}
+
+#game-container .phaser-dom {
+    position: absolute;
+    z-index: 9999 !important;
+}
