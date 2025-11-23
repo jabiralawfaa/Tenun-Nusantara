@@ -7,6 +7,7 @@ import { TenunanKamu } from './scenes/TenunanKamu';
 import { PesanTenun } from './scenes/PesanTenun';
 import { PolaTenunan } from './scenes/PolaTenunan';
 import { MulaiTenun } from './scenes/MulaiTenun';
+import { KainStats } from './scenes/KainStats';
 import Phaser, { AUTO, Game } from 'phaser';
 
 //  Find out more information about the Game Config at:
@@ -38,6 +39,7 @@ const config = {
         PesanTenun,
         PolaTenunan,
         MulaiTenun,
+        KainStats,
         MainGame,
         GameOver
     ]

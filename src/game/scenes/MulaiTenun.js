@@ -47,6 +47,57 @@ export class MulaiTenun extends Phaser.Scene {
             this.threads.push(thread);
         }
 
+        // Add "angkat" button in bottom right corner
+        this.angkatButton = this.add.rectangle(
+            this.scale.width - 100, // x position (right side)
+            this.scale.height - 100, // y position (bottom)
+            120, // width
+            45, // height
+            0x7b3ff2 // Purple color matching other scenes
+        ).setStrokeStyle(2, 0xffffff) // White border
+         .setInteractive({ useHandCursor: true })
+         .on('pointerdown', () => {
+             if (this.showingSolidThreads) {
+                 // Switch to showing stats scene
+                 this.scene.start('KainStats');
+             } else {
+                 // Make all threads solid
+                 this.threads.forEach(thread => {
+                     thread.setAlpha(0.9);
+                 });
+                 // Update button text to "Lihat Nilai"
+                 this.angkatText.setText('Lihat Nilai');
+                 this.showingSolidThreads = true;
+             }
+         });
+
+        // Add text to "angkat" button
+        this.angkatText = this.add.text(
+            this.scale.width - 100,
+            this.scale.height - 100,
+            'Angkat',
+            {
+                fontSize: '16px',
+                color: '#ffffff',
+                fontFamily: '"Pixelify Sans", Arial, sans-serif',
+                align: 'center'
+            }
+        ).setOrigin(0.5);
+
+        // Animate "angkat" button from bottom
+        this.angkatButton.setAlpha(0);
+        this.angkatText.setAlpha(0);
+        this.angkatButton.y += 50;
+        this.angkatText.y += 50;
+        this.tweens.add({
+            targets: [this.angkatButton, this.angkatText],
+            alpha: 1,
+            y: this.scale.height - 100,
+            duration: 600,
+            delay: 300,
+            ease: 'Back.easeOut'
+        });
+
         // Back button - bottom left
         const backButton = this.add.rectangle(
             100, // x position (left side)
@@ -264,6 +315,9 @@ export class MulaiTenun extends Phaser.Scene {
         this.leftPedalPressed = false;
         this.rightPedalPressed = false;
         this.expectingRightPedal = false; // Track if we expect the right pedal to be pressed next
+
+        // Initialize showingSolidThreads state
+        this.showingSolidThreads = false;
     }
 
     showPakanThread() {
