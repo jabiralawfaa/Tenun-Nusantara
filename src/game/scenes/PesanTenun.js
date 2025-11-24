@@ -15,66 +15,106 @@ export class PesanTenun extends Phaser.Scene {
         const centerX = this.scale.width / 2;
         const centerY = this.scale.height / 2;
 
-        // -------------------------
         // BACKGROUND
-        // -------------------------
-        const bg = this.add.image(centerX, centerY, "background");
-        bg.setDisplaySize(this.scale.width, this.scale.height);
+        const bg = this.add.image(centerX, centerY, "background")
+            .setDisplaySize(this.scale.width, this.scale.height);
 
-        // -------------------------
-        // PANEL HITAM TRANSPARAN
-        // -------------------------
+        // PANEL
         const panel = this.add.rectangle(
             centerX, centerY,
             this.scale.width * 0.95,
             this.scale.height * 0.80,
-            0x000000,
-            0.65
-        );
-        panel.setStrokeStyle(3, 0xffffff, 0.4);
+            0x000000, 0.65
+        ).setStrokeStyle(3, 0xffffff, 0.4);
 
-        // -------------------------
         // TITLE
-        // -------------------------
-        this.add.text(60, 40, "TENUN NUSANTARA", {
+        const title = this.add.text(60, 40, "TENUN NUSANTARA", {
             fontSize: "42px",
             fill: "#ffffff",
             fontFamily: '"Pixelify Sans", Arial',
         });
 
-        this.add.text(60, 100, "Pesan Tenunan Kamu", {
+        const subtitle = this.add.text(60, 100, "Pesan Tenunan Kamu", {
             fontSize: "24px",
             fill: "#ffffff",
             fontFamily: '"Pixelify Sans", Arial',
         });
 
-        // -------------------------
-        // CARD KAIN TENUN (SEBELAH KIRI)
-        // -------------------------
-        const card = this.add.rectangle(250, 320, 260, 300, 0x000000, 0.4)
-        card.setStrokeStyle(4, 0x3fa9ff);
+        // ==========================
+        // DATA PRODUK YANG SUDAH DIPILIH
+        // (bisa kamu ganti dari API atau localStorage nanti)
+        // ==========================
+        const products = [
+            { name: "Tenun Berkarya", img: "tenun" },
+            { name: "Tenun Nusantara", img: "tenun" },
+            { name: "Tenun Premium", img: "tenun" }
+        ];
 
-        this.add.image(250, 300, "tenun").setScale(0.35);
+        // Posisi awal tumpukan
+        let cardX = 250;
+        let startY = 240;
 
-        this.add.text(160, 420, "Tenun Berkarya", {
-            fontSize: "24px",
-            fill: "#fff",
-            fontFamily: '"Pixelify Sans", Arial',
+        // Jarak antar card (semakin kecil semakin tumpuk)
+        let stackGap = 85;
+
+        products.forEach((p, i) => {
+            const cardY = startY + (i * stackGap);
+
+            // CARD BG
+            const card = this.add.rectangle(cardX, cardY, 260, 120, 0x000000, 0.45);
+            card.setStrokeStyle(3, 0x3fa9ff);
+
+            // GAMBAR KECIL (BIAR MUAT DALAM STACK)
+            const img = this.add.image(cardX - 80, cardY, p.img).setScale(0.15);
+
+            // NAMA PRODUK
+            const nameText = this.add.text(cardX - 20, cardY - 20, p.name, {
+                fontSize: "20px",
+                fill: "#fff",
+                fontFamily: '"Pixelify Sans", Arial',
+            });
+
+            // HARGA
+            const priceText = this.add.text(cardX - 20, cardY + 10, p.price, {
+                fontSize: "18px",
+                fill: "#3fa9ff",
+                fontFamily: '"Pixelify Sans", Arial',
+            });
+
+            // ======================
+            // ANIMASI MASUK STACK CARD
+            // ======================
+            const elements = [card, img, nameText, priceText];
+
+            elements.forEach((el) => {
+                el.setAlpha(0);
+                el.y += 40;
+
+                this.tweens.add({
+                    targets: el,
+                    alpha: 1,
+                    y: "-=40",
+                    delay: i * 150,
+                    duration: 600,
+                    ease: "Back.easeOut"
+                });
+            });
         });
 
+
+
         // -------------------------
-        // FORM INPUT (KANAN)
+        // FORM
         // -------------------------
         const formX = 600;
         let y = 130;
 
-        // Label + Input Helper
         const makeLabel = (text, yPos) => {
             return this.add.text(formX - 80, yPos - 35, text, {
                 fontSize: "18px",
                 fill: "#fff",
                 fontFamily: '"Pixelify Sans", Arial',
-            })
+            });
         };
 
         const createInput = (yPos) => {
@@ -89,64 +129,88 @@ export class PesanTenun extends Phaser.Scene {
             return input;
         };
 
-        makeLabel("Atas nama", y);
+        const label1 = makeLabel("Atas nama", y);
         this.nameInput = createInput(y);
 
         y += 90;
-        makeLabel("Alamat", y);
+        const label2 = makeLabel("Alamat", y);
         this.addressInput = createInput(y);
 
         y += 90;
-        makeLabel("Nomor Telepon", y);
+        const label3 = makeLabel("Nomor Telepon", y);
         this.phoneInput = createInput(y);
 
         // -------------------------
-        // TOMBOL BELI (KANAN BAWAH)
+        // TOMBOL BELI
         // -------------------------
-        // const beliBtnBg = this.add.rectangle(formX, 430, 140, 45, 0x8a63ff);
-        // beliBtnBg.setStrokeStyle(2, 0xffffff);
+        const beliX = 600;
+        const beliY = 460;
 
-        const beliBtn = this.add.dom(550, 390, "button");
-        beliBtn.node.innerText = "Beli";
-        beliBtn.node.style.width = "180px";
-        beliBtn.node.style.height = "45px";
-        beliBtn.node.style.borderRadius = "8px";
-        beliBtn.node.style.border = "none";
-        beliBtn.node.style.background = "#b59bff";
-        beliBtn.node.style.color = "#000";
-        beliBtn.node.style.fontWeight = "bold";
-        beliBtn.node.style.fontSize = "18px";
-        beliBtn.node.style.cursor = "pointer";
+        const beliButton = this.add.rectangle(beliX, beliY, 180, 50, 0x7b3ff2)
+            .setOrigin(0.5)
+            .setStrokeStyle(2, 0xffffff)
+            .setInteractive({ useHandCursor: true });
 
-        beliBtn.addListener("click");
-        beliBtn.on("click", () => {
-            const name = this.nameInput.node.value;
-            const address = this.addressInput.node.value;
-            const phone = this.phoneInput.node.value;
+        const beliText = this.add.text(beliX, beliY, "Beli", {
+            fontFamily: '"Pixelify Sans", Arial',
+            fontSize: "18px",
+            color: "#ffffff"
+        }).setOrigin(0.5);
 
-            alert(`Pesanan berhasil!\nNama: ${name}\nAlamat: ${address}\nTelp: ${phone}`);
+        beliButton.on("pointerdown", () => {
+            alert(`Pesanan berhasil!\nNama: ${this.nameInput.node.value}\nAlamat: ${this.addressInput.node.value}\nTelp: ${this.phoneInput.node.value}`);
         });
 
         // -------------------------
-        // TOMBOL KEMBALI (KIRI BAWAH)
+        // TOMBOL KEMBALI
         // -------------------------
-        // const kembaliBg = this.add.rectangle(160, 500, 140, 45, 0x8a63ff);
-        // kembaliBg.setStrokeStyle(2, 0xffffff);
+        const kembaliX = 180;
+        const kembaliY = 560;
 
-        const kembaliBtn = this.add.dom(100, 550, "button");
-        kembaliBtn.node.innerText = "Kembali";
-        kembaliBtn.node.style.width = "140px";
-        kembaliBtn.node.style.height = "45px";
-        kembaliBtn.node.style.borderRadius = "8px";
-        kembaliBtn.node.style.border = "none";
-        kembaliBtn.node.style.background = "#b59bff";
-        kembaliBtn.node.style.color = "#000";
-        kembaliBtn.node.style.fontSize = "18px";
-        kembaliBtn.node.style.cursor = "pointer";
+        const kembaliButton = this.add.rectangle(kembaliX, kembaliY, 180, 50, 0x7b3ff2)
+            .setOrigin(0.5)
+            .setStrokeStyle(2, 0xffffff)
+            .setInteractive({ useHandCursor: true });
 
-        kembaliBtn.addListener("click");
-        kembaliBtn.on("click", () => {
-            this.scene.start("MainMenu");
+        const kembaliText = this.add.text(kembaliX, kembaliY, "Kembali", {
+            fontFamily: '"Pixelify Sans", Arial',
+            fontSize: "18px",
+            color: "#ffffff"
+        }).setOrigin(0.5);
+
+        kembaliButton.on("pointerdown", () => {
+            this.scene.start("TenunanKamu");
+        });
+
+        // =========================
+        // KUMPULKAN SEMUA ELEMEN YANG VALID
+        // =========================
+        let animTargets = [
+            panel, title, subtitle,
+            label1, this.nameInput,
+            label2, this.addressInput,
+            label3, this.phoneInput,
+            beliButton, beliText,
+            kembaliButton, kembaliText
+        ];
+
+
+        // =========================
+        // ANIMASI (FADE + SLIDE UP)
+        // =========================
+        animTargets.forEach((el, i) => {
+            if (!el) return;
+            el.setAlpha(0);
+            el.y += 40;
+
+            this.tweens.add({
+                targets: el,
+                alpha: 1,
+                y: "-=40",
+                duration: 600,
+                delay: i * 70,
+                ease: "Back.easeOut"
+            });
         });
     }
 }

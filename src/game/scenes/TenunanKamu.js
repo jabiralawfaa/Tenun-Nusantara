@@ -381,29 +381,41 @@ export class TenunanKamu extends Scene
         // -------------------------------
         // Tombol "Pesan Tenun" di kanan bawah
         // -------------------------------
-        const pesanButton = this.add.rectangle(this.scale.width - padding - buttonWidth / 2, this.scale.height - padding - buttonHeight / 2, buttonWidth, buttonHeight, 0xff7f50);
+        const pesanButton = this.add.rectangle(
+            this.scale.width - padding - buttonWidth / 2,
+            this.scale.height - padding - buttonHeight / 2,
+            buttonWidth,
+            buttonHeight,
+            0x7b3ff2 // warna sama seperti tombol kembali
+        );
         pesanButton.setOrigin(0.5, 0.5);
         pesanButton.setStrokeStyle(2, 0xffffff);
         pesanButton.setInteractive({ useHandCursor: true });
 
-        const pesanText = this.add.text(this.scale.width - padding - buttonWidth / 2, this.scale.height - padding - buttonHeight / 2, 'Pesan Tenun', {
-            fontFamily: '"Pixelify Sans", Arial, sans-serif',
-            fontSize: '16px',
-            color: '#ffffff',
-            align: 'center'
-        });
+        const pesanText = this.add.text(
+            this.scale.width - padding - buttonWidth / 2,
+            this.scale.height - padding - buttonHeight / 2,
+            'Pesan Tenun',
+            {
+                fontFamily: '"Pixelify Sans", Arial, sans-serif',
+                fontSize: '16px',
+                color: '#ffffff',
+                align: 'center'
+            }
+        );
         pesanText.setOrigin(0.5, 0.5);
 
         pesanButton.on('pointerdown', () => {
             console.log('Pesan Tenun button clicked');
-            this.scene.start('PesanTenun'); // pindah ke scene PesanTenun
+            this.scene.start('PesanTenun');
         });
 
-        // Animate pesan button
+        // Animasi sama seperti tombol kembali
         pesanButton.setAlpha(0);
         pesanText.setAlpha(0);
         pesanButton.y += 50;
         pesanText.y += 50;
+
         this.tweens.add({
             targets: [pesanButton, pesanText],
             alpha: 1,
